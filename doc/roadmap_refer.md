@@ -25,6 +25,8 @@ programming language
   * [C++ 教程 | 菜鸟教程](https://www.runoob.com/cplusplus/cpp-tutorial.html)
   * [C++ Primer](https://book.douban.com/subject/25708312/)
 * Java basic
+  * [Java核心技术·卷 I](https://book.douban.com/subject/34898994/)
+  * [Effective Java](https://book.douban.com/subject/30412517/)
 
 
 data structure and basic algorithm
@@ -38,8 +40,10 @@ other info you should skim at the beginning (personal advise
 additional book recommendation for sprint 1
 * [人月神话](https://book.douban.com/subject/1105381/)
 
+
 > Talk is cheap. Show me the code.
 
+---
 
 ## sprint 2 - whatever
 
