@@ -1,3 +1,4 @@
+import java.util.Scanner;
 import static java.lang.Math.*;
 
 /**
@@ -55,9 +56,87 @@ public class TryJavaBasicSyntax {
         return -1;
     }
 
+    /**
+     * Conceptually, Java strings are sequences of Unicode characters.
+     */
+    public void tryString(){
+        String ss = "this is a test sentence.";
+        System.out.println(ss);
+
+        // substring
+        String ss_sub = ss.substring(0, 4);
+        System.out.println(ss_sub);
+
+        // concat
+        String ss_concat = ss + " " + ss_sub;
+        System.out.println(ss_concat);
+        System.out.println("you can also do it here +++ " + ss_concat);
+
+        // !! Strings Are Immutable
+        String test_1 = "test 1";
+        System.out.println(test_1.hashCode());
+        test_1 = "test 2";
+        String test_2 = "test 2";
+        System.out.println(test_1.hashCode());
+        System.out.println(test_2.hashCode());
+        test_2 = "test 1";
+        System.out.println(test_2.hashCode());
+        // -877171677
+        // -877171676
+        // -877171676
+        // -877171677
+
+        // equal
+        String e1 = "abcd";
+        String e2 = "abc";
+        System.out.printf("e1.substring(0,3): %s\n", e1.substring(0,3));
+        System.out.println(e2.equals(e1.substring(0,3))); // using equal!
+        System.out.println(e2 == e1.substring(0,3)); // stop using "==" for equal
+        // e1.substring(0,3): abc
+        // true
+        // false
+
+        // > The String class in Java contains more than 50 methods. A surprisingly large
+        // > number of them are sufficiently useful that we can imagine using them
+        // > frequently.
+    }
+
+    /**
+     * cout is easy, now try cin. :)
+     */
+    public void tryStandardIO(){
+        // > Whenever you use a class that is not defined in the basic
+        // > java.lang package, you need to use an import directive.
+        // import java.util.Scanner
+        Scanner cin = new Scanner(System.in);
+        System.out.println("please input something, whatever:");
+        String sentence_input = cin.nextLine();
+        System.out.println("Your input: " + sentence_input);
+        try {
+            System.out.println("please input a int:");
+            int int_input = cin.nextInt();
+            System.out.println(int_input);
+            System.out.println("please input a float:");
+            float float_input = cin.nextFloat();
+            System.out.println(float_input);
+        }catch (Exception e){
+            System.out.println("oops, illegal input.");
+        }
+
+        System.out.println("Now I will repeat your input, enter \"bye\" to exit.");
+        String whatever_input = cin.next();
+        while (!whatever_input.equals("bye")){
+            System.out.println(":) " + whatever_input);
+            whatever_input = cin.next();
+        }
+        System.out.println("byebye~");
+    }
+
     public static void main(String[] args) {
         TryJavaBasicSyntax tjbs = new TryJavaBasicSyntax();
         tjbs.tryPrimitiveType();
+        tjbs.tryString();
+        tjbs.tryStandardIO();
     }
 
 }
