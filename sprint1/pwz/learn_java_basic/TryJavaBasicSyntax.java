@@ -132,11 +132,86 @@ public class TryJavaBasicSyntax {
         System.out.println("byebye~");
     }
 
+    /**
+     * try control flow
+     */
+    public void tryControlFlow(){
+        int k;
+        { // this is a code block
+            // int k; can't define another k in the block
+            int i=0; // this i is only valid in this block
+
+            // for
+            System.out.printf("now i = %d\n", i);
+            for(;i<5;++i){
+                System.out.printf("for loop... just like c... %d\n", i);
+            }
+
+            // while
+            System.out.printf("now i = %d\n", i);
+            while (i>0){
+                System.out.printf("well, while...ing... %d\n", i--);
+            }
+
+            // do-while
+            System.out.printf("now i = %d\n", i);
+            do{
+                System.out.printf("well, do-while...ing... %d\n", i++);
+            }while (i < 3);
+        }
+        // System.out.println(i); // can't find the i out of the block
+
+        // switch
+        int outer_flag = -1;
+        do{
+            int random_number = (int) (random()*10);
+            switch (random_number){
+                case 0:
+                    System.out.println("0! cool! but not 3.");
+                    break;
+                case 1:
+                    System.out.println("1! cool! but not 3.");
+                    break;
+                case 2:
+                    System.out.println("2! cool! but not 3.");
+                    break;
+                case 5:
+                    System.out.println("5! cool! but not 3.");
+                    break;
+                case 6:
+                    System.out.println("6! cool! but not 3.");
+                    break;
+                case 7:
+                    System.out.println("7! cool! but not 3.");
+                    break;
+                case 8:
+                    System.out.println("8! cool! but not 3.");
+                    break;
+                case 9:
+                    System.out.println("9! cool! but not 3.");
+                    break;
+                case 10:
+                    System.out.println("10! nice! but not 3.");
+                    break;
+            }
+            outer_flag = random_number;
+        } while (outer_flag != 3);
+        System.out.println("3!!!!!");
+
+        // foreach
+        // for (variable : collection) statement
+        int[] a = new int[10];
+        for (int i = 0; i< 10; ++i)a[i] = i;
+        for (int x: a)  System.out.println(x);
+
+    }
+
     public static void main(String[] args) {
         TryJavaBasicSyntax tjbs = new TryJavaBasicSyntax();
-        tjbs.tryPrimitiveType();
-        tjbs.tryString();
-        tjbs.tryStandardIO();
+        // tjbs.tryPrimitiveType();
+        // tjbs.tryString();
+        // tjbs.tryStandardIO();
+        tjbs.tryControlFlow();
     }
 
 }
