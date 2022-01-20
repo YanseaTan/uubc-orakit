@@ -2,8 +2,11 @@ import java.util.Scanner;
 import static java.lang.Math.*;
 
 /**
- * this is Documentation Comments
- * used to generate documentation automatically
+ * this is Documentation Comments used to generate documentation automatically
+ * Core Java --> Chapter1~3 reading notes
+ * @author pengwei.zhang
+ * @version 2022.01.21
+ * @see <a href="www.horstmann.com/corejava.html">Core Java</a>
  */
 public class TryJavaBasicSyntax {
 
@@ -14,7 +17,6 @@ public class TryJavaBasicSyntax {
      * 8 primitive type in java: integer*4 + floating-point*2 + char + boolean
      *
      * @author pengwei.zhang
-     * @date 2022.01.20
      * @return well, always -1
      */
     public int tryPrimitiveType(){
