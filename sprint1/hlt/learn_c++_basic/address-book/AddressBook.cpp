@@ -20,7 +20,9 @@ struct AddressBook
 
 void showMenu()
 {
+    cout<<"Welcome to the AddressBook system!"<<endl;
     cout<<"1. Add new person"<<endl;
+    cout<<"2. Show all person"<<endl;
     cout<<"0. Exit"<<endl;
 }
 
@@ -78,6 +80,28 @@ void addPerson(AddressBook * abs)
         }
     }
 
+void showPerson(AddressBook * abs)
+{
+    if(abs->m_Size == 0)
+    {
+        cout<<"Ops...the AddressBook is empty :)"<<endl;
+    }
+    else
+    {
+        for(int i = 0;i < abs->m_Size;i++) //use ";" inside for()
+        {
+            cout<<"Name: "<<abs->personArray[i].m_Name<<"\t";
+            cout<<"Sex: "<<(abs->personArray[i].m_Sex == 1 ? "man" : "woman")<<"\t";
+            cout<<"Age: "<<abs->personArray[i].m_Age<<"\t";
+            cout<<"Phone: "<<abs->personArray[i].m_Phone<<"\t";
+            cout<<"Address: "<<abs->personArray[i].m_Addr<<endl;
+        }
+    }
+
+    system("pause");
+    system("cls");
+}
+
 int main()
 {
     AddressBook abs;
@@ -92,6 +116,10 @@ int main()
         {
             case 1:
             addPerson(&abs); //end with ";" when use function
+                break;
+
+            case 2:
+            showPerson(&abs);
                 break;
 
             case 0:
