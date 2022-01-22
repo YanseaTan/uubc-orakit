@@ -1,0 +1,2 @@
+public class TryJavaOOP {
+}
