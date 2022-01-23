@@ -2,7 +2,7 @@ import java.time.LocalDate;
 import java.util.Date;
 
 /**
- * Core Java --> Chapter4~6 reading notes
+ * Core Java --> Chapter4 reading notes
  * @author pengwei.zhang
  * @version 2022.01.24
  * @see <a href="www.horstmann.com/corejava.html">Core Java</a>
