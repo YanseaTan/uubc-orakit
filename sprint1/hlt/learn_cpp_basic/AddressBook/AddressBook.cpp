@@ -24,6 +24,9 @@ void showMenu()
     cout<<"1. Add new person"<<endl;
     cout<<"2. Show all person"<<endl;
     cout<<"3. Delete someone"<<endl;
+    cout<<"4. Search someone"<<endl;
+    cout<<"5. Modify someone"<<endl;
+    cout<<"6. Clear data"<<endl;
     cout<<"0. Exit"<<endl;
 }
 
@@ -140,6 +143,93 @@ void deletePerson(AddressBook * abs)
 	system("cls");
 }
 
+void searchPerson(AddressBook * abs)
+{
+    cout<<"Please enter the name who you want to delete: "<<endl;
+    string name;
+    cin>>name;
+
+    int ret = isExist(abs,name);
+    if(ret != -1)
+    {
+        cout<<"Name: "<<abs->personArray[ret].m_Name<<"\t";
+        cout<<"Sex: "<<(abs->personArray[ret].m_Sex == 1 ? "man" : "woman")<<"\t";
+        cout<<"Age: "<<abs->personArray[ret].m_Age<<"\t";
+        cout<<"Phone: "<<abs->personArray[ret].m_Phone<<"\t";
+        cout<<"Address: "<<abs->personArray[ret].m_Addr<<endl;
+    }
+    else
+    {
+        cout<<"There is no one named "<<name<<"~"<<endl;
+    }
+
+    system("pause");
+	system("cls");
+}
+
+void modifyPerson(AddressBook * abs)
+{
+    cout<<"Please enter the name who you want to modify: "<<endl;
+    string name;
+    cin>>name;
+
+    int ret = isExist(abs,name);
+    if(ret != -1)
+    {
+        cout<<"Please enter the name: "<<endl;
+        cin>>name;
+        abs->personArray[ret].m_Name = name;
+
+        int sex;
+        cout<<"Please enter the sex number: "<<endl;
+        cout<<"1 --- man"<<endl;
+        cout<<"2 --- woman"<<endl;
+        while(true)
+        {
+            cin>>sex;
+            if(sex == 1 || sex == 2)
+            {
+                abs->personArray[ret].m_Sex = sex;
+                break;
+            }
+            cout<<"Please enter right number: "<<endl;
+        }
+
+        int age;
+        cout<<"Please enter the age: "<<endl;
+        cin>>age;
+        abs->personArray[ret].m_Age = age;
+
+        string phone;
+        cout<<"Please enter the phone number: "<<endl;
+        cin>>phone;
+        abs->personArray[ret].m_Phone = phone;
+
+        string addr;
+        cout<<"Please enter the address: "<<endl;
+        cin>>addr;
+        abs->personArray[ret].m_Addr = addr;
+
+        cout<<"Modified successfully!"<<endl;
+    }
+    else
+    {
+        cout<<"There is no one named "<<name<<"~"<<endl;
+    }
+
+    system("pause");
+	system("cls");
+}
+
+void cleanPerson(AddressBook * abs)
+{
+    abs->m_Size = 0;
+    cout<<"Cleared successfully!"<<endl;
+
+    system("pause");
+	system("cls");
+}
+
 int main()
 {
     AddressBook abs;
@@ -162,6 +252,18 @@ int main()
 
             case 3:
             deletePerson(&abs);
+                break;
+
+            case 4:
+            searchPerson(&abs);
+                break;
+
+            case 5:
+            modifyPerson(&abs);
+                break;
+
+            case 6:
+            cleanPerson(&abs);
                 break;
 
             case 0:
