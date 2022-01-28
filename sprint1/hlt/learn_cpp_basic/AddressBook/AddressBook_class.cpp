@@ -12,7 +12,7 @@ public:
     int m_Age;
     string m_Phone;
     string m_Addr;
-};
+}; //end with ";"
 
 class AddressBook
 {
@@ -35,58 +35,58 @@ void showMenu()
 }
 
 void addPerson(AddressBook * abs)
+{
+    if(abs->m_Size == MAX)
     {
-        if(abs->m_Size == MAX)
-        {
-            cout<<"AddressBook is full!"<<endl;
-            return;
-        }
-        else
-        {
-            string name;
-            cout<<"Please enter the name: "<<endl;
-            cin>>name;
-            abs->personArray[abs->m_Size].m_Name = name;
-
-            int sex;
-            cout<<"Please enter the sex number: "<<endl;
-            cout<<"1 --- man"<<endl;
-            cout<<"2 --- woman"<<endl;
-            while(true)
-            {
-                cin>>sex; //cin out of while() may make program never stop 
-                if(sex == 1 || sex == 2)
-                {
-                    abs->personArray[abs->m_Size].m_Sex = sex;
-                    break; //break from while()
-                }
-                cout<<"Please enter right number: "<<endl;
-            }
-            
-            int age;
-            cout<<"Please enter the age: "<<endl;
-            cin>>age;
-            abs->personArray[abs->m_Size].m_Age = age;
-
-            string phone;
-            cout<<"Please enter the phone number: "<<endl;
-            cin>>phone;
-            abs->personArray[abs->m_Size].m_Phone = phone;
-
-            string addr;
-            cout<<"Please enter the address: "<<endl;
-            cin>>addr;
-            abs->personArray[abs->m_Size].m_Addr = addr;
-
-            abs->m_Size++;
-
-            cout<<"Added successfully!"<<endl;
-
-            system("pause");
-            system("cls");
-
-        }
+        cout<<"AddressBook is full!"<<endl;
+        return;
     }
+    else
+    {
+        string name;
+        cout<<"Please enter the name: "<<endl;
+        cin>>name;
+        abs->personArray[abs->m_Size].m_Name = name;
+
+        int sex;
+        cout<<"Please enter the sex number: "<<endl;
+        cout<<"1 --- man"<<endl;
+        cout<<"2 --- woman"<<endl;
+        while(true)
+        {
+            cin>>sex; //cin out of while() may make program never stop 
+            if(sex == 1 || sex == 2)
+            {
+                abs->personArray[abs->m_Size].m_Sex = sex;
+                break; //break from while()
+            }
+            cout<<"Please enter right number: "<<endl;
+        }
+        
+        int age;
+        cout<<"Please enter the age: "<<endl;
+        cin>>age;
+        abs->personArray[abs->m_Size].m_Age = age;
+
+        string phone;
+        cout<<"Please enter the phone number: "<<endl;
+        cin>>phone;
+        abs->personArray[abs->m_Size].m_Phone = phone;
+
+        string addr;
+        cout<<"Please enter the address: "<<endl;
+        cin>>addr;
+        abs->personArray[abs->m_Size].m_Addr = addr;
+
+        abs->m_Size++;
+
+        cout<<"Added successfully!"<<endl;
+
+        system("pause");
+        system("cls");
+
+    }
+}
 
 void showPerson(AddressBook * abs)
 {
