@@ -48,7 +48,7 @@ additional book recommendation for sprint 1
 ## sprint 2 - whatever
 
 * 数据库
-* 面向对象编程思想、设计模式
+* 面向对象编程思想、设计模式、UML
 * 编程语言进阶（C++ STL等）
 * 计算机相关知识加深（操作系统、计算机组成原理知识简单了解
 * ...
