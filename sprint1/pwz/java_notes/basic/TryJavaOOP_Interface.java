@@ -1,3 +1,5 @@
+package pwz.java_notes.basic;
+
 public interface TryJavaOOP_Interface {
     //define something
     void helloInterface();

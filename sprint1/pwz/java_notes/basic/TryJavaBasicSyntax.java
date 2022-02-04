@@ -1,3 +1,5 @@
+package pwz.java_notes.basic;
+
 import java.util.Scanner;
 import static java.lang.Math.*;
 

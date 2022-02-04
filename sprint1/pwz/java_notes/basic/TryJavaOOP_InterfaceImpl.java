@@ -1,3 +1,5 @@
+package pwz.java_notes.basic;
+
 import java.util.function.BiFunction;
 
 public class TryJavaOOP_InterfaceImpl implements TryJavaOOP_Interface, Comparable{
