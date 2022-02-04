@@ -1,4 +1,4 @@
-package pwz.notes.java_basic_further;
+package pwz.java_notes.further;
 
 public class AboutLambdaExpressions {
 }

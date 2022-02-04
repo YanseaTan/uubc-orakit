@@ -1,3 +1,5 @@
+package pwz.java_notes.basic;
+
 public class TryJavaOOP_Inheritance {
     public static void main(String[] args) {
         Creature creature = new Creature();
