@@ -1,3 +1,5 @@
+package pwz.java_notes.basic;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
