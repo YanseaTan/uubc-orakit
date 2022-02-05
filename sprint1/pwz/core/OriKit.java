@@ -29,6 +29,7 @@ public class OriKit {
 
             Task task = new Task(token);
             Thread t = new Thread(task);
+            t.setDaemon(false);
             t.start();
             //System.out.println("Task is running...");
         }

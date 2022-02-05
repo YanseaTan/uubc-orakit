@@ -7,6 +7,7 @@ public class LogicChunk {
             // do logic...
         }
         if(token.equals("snake")){
+            System.out.println("I start a Snake for you.");
             new pwz.service.Snake.Scene();
         }
     }
