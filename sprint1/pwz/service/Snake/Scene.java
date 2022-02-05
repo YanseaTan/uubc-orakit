@@ -23,6 +23,9 @@ public class Scene extends Frame {
         this.e = new Egg(30, 30);
         this.setSize(2*SceneSize, 2*SceneSize);
         this.setVisible(true);
+        this.setTitle("Snake");
+        this.setLocation(600, 300);
+        this.setAlwaysOnTop(true);
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
