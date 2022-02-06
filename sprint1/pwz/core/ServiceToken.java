@@ -7,20 +7,24 @@ import java.util.HashMap;
 public class ServiceToken {
     /**
      * service info map
-     *
-     * key = token
-     * value = ArrayList<String>
-     *     list[0] = service entrance
-     *     list[1] = task started greetings
-     *     list[2] = task finished greetings
+     * <p>
+     * key: token
+     * isBlockThread: if yes, main thread need to be blocked until the task finished.
      */
-    public static final HashMap<String, ArrayList<String>> tokenInfo = new HashMap<String, ArrayList<String>>() {
+    public static final HashMap<String, HashMap<String, String>> tokenInfo = new HashMap<String, HashMap<String, String>>() {
         {
-            put("snake", new ArrayList<>(
-                    Arrays.asList(
-                            "pwz.service.Snake.Scene",
-                            "enjoy the game~",
-                            "boring...")));
+            put("snake", new HashMap<String, String>() {{
+                put("class", "pwz.service.Snake.Scene");
+                put("method", "main");
+                put("isBlockThread", "no");
+                put("greetings", "enjoy the game~");
+            }});
+            put("weather", new HashMap<String, String>() {{
+                put("class", "pwz.service.WeatherQueryUtil");
+                put("method", "queryWeather");
+                put("isBlockThread", "yes");
+                put("greetings", "");
+            }});
         }
     };
 }
