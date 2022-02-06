@@ -7,6 +7,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class Scene extends Frame {
+    private boolean isAlive = true;
 
     public static final int NodeSize = 10;
     public static final int NodeCount = 50;
@@ -19,7 +20,7 @@ public class Scene extends Frame {
     Egg e;
 
     public Scene() {
-        this.s = new Snake();
+        this.s = new Snake(true);
         this.e = new Egg(30, 30);
         this.setSize(2*SceneSize, 2*SceneSize);
         this.setVisible(true);
@@ -29,7 +30,8 @@ public class Scene extends Frame {
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                System.exit(0);
+                // don't use System.exit() here, that will kill the jvm then the OriKit down also
+                isAlive = false;
             }
         });
 
@@ -40,7 +42,7 @@ public class Scene extends Frame {
             }
         });
 
-        while (true) {
+        while (isAlive) {
             try {
                 Thread.sleep(50);
             } catch (InterruptedException e) {
@@ -89,6 +91,8 @@ public class Scene extends Frame {
     }
 
     public static void main(String[] args) {
-        new Scene();
+        Scene s = new Scene();
+        s.setVisible(false);
+        s = null;
     }
 }
