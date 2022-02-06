@@ -1,6 +1,7 @@
 package pwz.service;
 
-import jdk.nashorn.internal.parser.JSONParser;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,6 +10,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class WeatherQueryUtil {
@@ -17,17 +21,26 @@ public class WeatherQueryUtil {
     private static final String url = "https://api.66mz8.com/api/weather.php?location=";
 
     public static void queryWeather(String[] args){
-        System.out.println("where do you want to check the weather?");
+        // System.out.println("where do you want to check the weather?");
+        System.out.println("where?");
         Scanner in = new Scanner(System.in);
         String location = in.nextLine();
-        System.out.println("checking  " + location + "'s weather...");
+        // System.out.println("checking  " + location + "'s weather...");
 
-        //todo: query the weather...
         String queryUrl = url + location;
         String jsonString = get(queryUrl);
-        System.out.println(jsonString);
+        // System.out.println(jsonString);
 
-
+        Gson gson = new Gson();
+        try {
+            HashMap<String, Object> resultMap = gson.fromJson(jsonString, HashMap.class);
+            // System.out.println(resultMap);
+            String weather = (String) ((Map)((ArrayList)resultMap.get("data")).get(0)).get("weather");
+            System.out.println(weather);
+        }catch (Exception e){
+            System.out.println("you sure '" + location + "'? I can't get it's weather info.");
+            // e.printStackTrace();
+        }
 
     }
 
