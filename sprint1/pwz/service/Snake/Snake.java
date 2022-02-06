@@ -2,14 +2,40 @@ package pwz.service.Snake;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.Random;
+
+import static java.lang.Thread.sleep;
 
 public class Snake {
     Node head, tail;
     Direction dir = Direction.RIGHT;
+    Random r = new Random();
+    boolean isAutoPilot = false;
 
     Snake() {
         head = new Node(10, 10);
         tail = head;
+    }
+
+    public Snake(boolean isAutoPilot) {
+        this.isAutoPilot = isAutoPilot;
+        head = new Node(10, 10);
+        tail = head;
+
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    while (true){
+                        sleep(666);
+                        autoPilot();
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        t.start();
     }
 
     public void addToHead() {
@@ -41,6 +67,33 @@ public class Snake {
         }
 
         move();
+    }
+
+    private void autoPilot(){
+        int d = r.nextInt(4);
+        String dd;
+        switch (d){
+            case 0:{
+                dd = "UP";
+                dir = Direction.UP;
+                break;
+            }
+            case 1:{
+                dd = "DOWN";
+                dir = Direction.DOWN;
+                break;
+            }
+            case 2:{
+                dd = "LEFT";
+                dir = Direction.LEFT;
+                break;
+            }
+            case 3:{
+                dd = "RIGHT";
+                dir = Direction.RIGHT;
+                break;
+            }
+        }
     }
 
     private void move() {
