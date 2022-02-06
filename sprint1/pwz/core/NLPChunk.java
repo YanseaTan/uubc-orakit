@@ -6,11 +6,11 @@ import java.util.ArrayList;
 
 public class NLPChunk {
     public static void sayHello(){
-        System.out.println("Hi~ what can I do for you?");
+        System.out.println("what can I do for you?");
     }
 
     public static void say404(){
-        System.out.println("Sorry, I don't understand.");
+        System.out.println("I don't understand.");
     }
 
     public static ArrayList<String> tokenAnalyze(String sentence){
