@@ -31,10 +31,12 @@
 *.out
 *.app
 
-
-# idea
+# Idea
 .idea
 .DS_Store
 .vscode
 *.iml
 out
+
+# Files
+lib/
