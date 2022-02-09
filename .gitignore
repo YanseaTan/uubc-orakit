@@ -35,8 +35,13 @@
 .idea
 .DS_Store
 .vscode
+.vs
+*.sln
+*.vcxproj
+*.vcxproj.*
 *.iml
 out
 
 # Files
 lib/
+X64/
