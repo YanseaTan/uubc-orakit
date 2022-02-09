@@ -31,6 +31,7 @@ programming language
 
 data structure and basic algorithm
 * [数据结构（C语言版） 严蔚敏版](https://book.douban.com/subject/24699581/)
+* [数据结构: C++语言版 邓俊辉版](https://b-ok.cc/book/5424117/3a8f06)
 * [Data Structures | GeeksforGeeks](https://www.geeksforgeeks.org/data-structures/?ref=shm)
 
 other info you should skim at the beginning (personal advise
