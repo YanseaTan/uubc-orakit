@@ -1,5 +1,9 @@
 #include<iostream>
 #include"WorkerManager.h"
+#include"Worker.h"
+#include"Employee.h"
+#include"Manager.h"
+#include"Boss.h"
 using namespace std;
 
 int main() {
@@ -15,6 +19,7 @@ int main() {
         switch (choice)
         {
         case 1:
+            wm.addEmp();
             break;
 
         case 2:
@@ -40,7 +45,7 @@ int main() {
             break;
 
         default:
-            system("clc");
+            system("cls");
             break;
         }
     }
