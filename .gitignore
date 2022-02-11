@@ -45,3 +45,6 @@ out
 # Files
 lib/
 X64/
+
+# Output
+*.txt
