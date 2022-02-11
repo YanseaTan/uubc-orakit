@@ -50,8 +50,6 @@ int main() {
         }
     }
 
-    wm.showMenu();
-
     system("pause");
     return 0;
 }

@@ -2,9 +2,87 @@
 
 //"::" scope
 WorkerManager::WorkerManager() {
-    //initialize properties
-    this->m_EmpNum = 0;
-    this->m_EmpArray = NULL;
+    ifstream ifs;
+    //open the file for reading
+    ifs.open(FILENAME, ios::in);
+
+    //check if the file exists
+    if (!ifs.is_open()) {
+        cout << "There is no empFile.txt." << endl;
+        //initialize properties
+        this->m_EmpNum = 0;
+        this->m_EmpArray = NULL;
+        this->m_FileIsEmpty = true;
+        ifs.close();
+        return; //exit the constructor, do not run the remaining "if()"
+    }
+
+    //check if the file is empty
+    char ch;
+    ifs >> ch; //"ifs >>": input from file to memory
+    if (ifs.eof()) {
+        cout << "The empFile.txt is empty." << endl;
+        this->m_EmpNum = 0;
+        this->m_EmpArray = NULL;
+        this->m_FileIsEmpty = true;
+        ifs.close();
+        return;
+    }
+
+    this->m_EmpNum = this->getEmpNum();
+    
+    //open up memory space
+    this->m_EmpArray = new Worker * [this->m_EmpNum];
+    //import data from a file into an in-memory array
+    this->initEmp();
+
+}
+
+int WorkerManager::getEmpNum() {
+    ifstream ifs;
+    ifs.open(FILENAME, ios::in);
+
+    int id;
+    string name;
+    int deptId;
+    int num = 0;
+    while (ifs >> id && ifs >> name && ifs >> deptId) {
+        num++;
+    }
+
+    ifs.close();
+    return num;
+}
+
+void WorkerManager::initEmp() {
+    ifstream ifs;
+    ifs.open(FILENAME, ios::in);
+
+    int id;
+    string name;
+    int deptId;
+    int i = 0;
+    while (ifs >> id && ifs >> name && ifs >> deptId) {
+        Worker* worker = NULL;
+
+        switch (deptId) {
+        case 1:
+            worker = new Employee(id, name, deptId);
+            break;
+        case 2:
+            worker = new Manager(id, name, deptId);
+            break;
+        case 3:
+            worker = new Boss(id, name, deptId);
+            break;
+        default:
+            break;
+        }
+        
+        this->m_EmpArray[i] = worker;
+        i++;
+    }
+    ifs.close();
 }
 
 void WorkerManager::showMenu() {
@@ -22,7 +100,7 @@ void WorkerManager::showMenu() {
 void WorkerManager::exitSystem() {
     cout << "bye~" << endl;
     system("pause");
-    exit(0); //exit function
+    exit(0); //exit the program
 }
 
 void WorkerManager::addEmp() {
@@ -45,11 +123,11 @@ void WorkerManager::addEmp() {
             string name;
             int deptId;
 
-            cout << "Please enter the " << i + 1 << "-th employee number: " << endl;
+            cout << "Please enter the " << i + 1 << "-th employee ID: " << endl;
             cin >> id;
-            cout << "Please enter the " << i + 1 << "-th employee name: " << endl;
+            cout << "Please enter the " << i + 1 << "-th employee Name: " << endl;
             cin >> name;
-            cout << "Please enter the " << i + 1 << "-th employee rank: " << endl;
+            cout << "Please enter the " << i + 1 << "-th employee Rank: " << endl;
             cout << "1. Employee" << endl;
             cout << "2. Manager" << endl;
             cout << "3. Boss" << endl;
@@ -75,8 +153,10 @@ void WorkerManager::addEmp() {
         delete[] this->m_EmpArray;
         this->m_EmpArray = newSpace;
         this->m_EmpNum = newSize;
+        this->m_FileIsEmpty = false;
 
         cout << "Successfully added " << addNum << " new employees!" << endl;
+        this->save();
     }
     else {
         cout << "Incorrect input, please try again." << endl;
@@ -86,6 +166,23 @@ void WorkerManager::addEmp() {
     system("cls");
 }
 
-WorkerManager::~WorkerManager() {
+void WorkerManager::save() {
+    ofstream ofs;
+    //open the file for writing
+    ofs.open(FILENAME, ios::out);
 
+    for (int i = 0; i < this->m_EmpNum; i++) {
+        ofs << this->m_EmpArray[i]->m_Id << " ";
+        ofs << this->m_EmpArray[i]->m_Name << " ";
+        ofs << this->m_EmpArray[i]->m_DeptId << endl;
+    }
+
+    ofs.close();
+}
+
+WorkerManager::~WorkerManager() {
+    if (this->m_EmpArray != NULL) {
+        delete[] this->m_EmpArray;
+        this->m_EmpArray = NULL;
+    }
 }
