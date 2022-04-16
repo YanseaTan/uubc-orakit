@@ -21,7 +21,7 @@ def show_main_window():
     win.config(menu=menu_bar)
     # create menu and add menu items
     func_menu = tk.Menu(menu_bar, tearoff=0)
-    func_menu.add_command(label='New File')
+    func_menu.add_command(label='New File', command=help_callback)
     menu_bar.add_cascade(label="File", menu=func_menu)
 
     # help_menu = tk.Menu(menu_bar)
