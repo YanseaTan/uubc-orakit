@@ -48,3 +48,4 @@ X64/
 
 # Output
 *.txt
+__pycache__
