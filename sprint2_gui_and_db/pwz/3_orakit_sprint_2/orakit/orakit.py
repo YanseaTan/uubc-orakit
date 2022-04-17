@@ -6,11 +6,13 @@ import tkinter as tk
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox as msg
+from tkinter import scrolledtext as st
 import author_util as aut
 from author_util import Role
 
-MAIN_WIN_WIDTH = 600
+MAIN_WIN_WIDTH = 800
 MAIN_WIN_HEIGHT = 400
+
 
 def help_callback():
     msg.showinfo('OraKit Help', 'no help')
@@ -18,12 +20,18 @@ def help_callback():
 
 def init_func(root, menu_bar, account):
     """根据用户角色初始化功能菜单"""
+
+    # ------------------------------------------------------------------------------
+    # 处理权限问题
+    # ------------------------------------------------------------------------------
+
     # 首先将Function菜单下内容清空
     menu_func = menu_bar.winfo_children()[1]
     menu_func.delete(0, 9999)
 
     # 查询用户角色
     role = aut.select_role_by_account(account)
+
     # print(role)
 
     # 根据角色处理菜单项(测试权限系统用)
@@ -31,18 +39,57 @@ def init_func(root, menu_bar, account):
         if str(_role) == role:
             return tk.NORMAL
         return tk.DISABLED
+
     menu_func.add_command(label='[TEST] Available for Role.Admin', state=available_for_this_role(Role.Admin))
     menu_func.add_command(label='[TEST] Available for Role.Visitor', state=available_for_this_role(Role.Visitor))
     menu_func.add_command(label='[TEST] Available for Role.Developer', state=available_for_this_role(Role.Developer))
 
+    # ------------------------------------------------------------------------------
     # 处理本次迭代的实际可用功能项
-    # todo
+    # ------------------------------------------------------------------------------
+
+    # 首先，获取主窗口左右两部分LabelFrame布局控件
+    children = root.winfo_children()
+    chat_frame = None
+    func_frame = None
+
+    for child in children:
+        # 通过组件属性获取子组件
+        try:
+            if child.cget('text') == 'chat-area':
+                print('got the chat-area frame')
+                chat_frame = child
+            elif child.cget('text') == 'func-area':
+                print('got the func-area frame')
+                func_frame = child
+        except Exception as e:
+            print(e)
+
+    # 其次，初始化右侧对话系统（本次不再具体实现后台功能，仅展示）
+    stext = st.ScrolledText(chat_frame, width=35)
+    stext.grid()
+    stext.insert(INSERT, """now you can use the chat system\n---\n\nme: hello\nor: hi""")
+
+    def send_msg(event=None):
+        default_resp = """\nor: sorry, chat system offline now."""
+        stext.insert('end', f'\nme: {entry_input.get()}' + default_resp)
+
+    frm_input = Frame(chat_frame)
+    entry_input = StringVar()
+    ent = Entry(frm_input, textvariable=entry_input)
+    ent.grid(column=0, row=0)
+    ent.bind('<Key-Return>', send_msg)
+    Button(frm_input, text='Enter to send the chat', command=send_msg).grid(column=1, row=0)
+    frm_input.grid(sticky=W + E)
+
+    # 最后，初始化功能菜单并绑定
+
 
 
 def hidden_func_for_admin(root):
     hidden_win = tk.Toplevel(root)
     hidden_win.title('Hidden Func for Admin')
-    hidden_win.geometry(f'400x300+{(root.winfo_screenwidth()-400)//2}+{(root.winfo_screenheight()-300)//2}')
+    hidden_win.geometry(f'400x300+{(root.winfo_screenwidth() - 400) // 2}+{(root.winfo_screenheight() - 300) // 2}')
 
     # 新增用户
     lfrm = ttk.Labelframe(hidden_win, text='Account Insert', padding='5p')
@@ -86,7 +133,7 @@ def login(root, menu_bar):
 
     login_win = tk.Toplevel(root)
     login_win.title('Login')
-    login_win.geometry(f'300x100+{(root.winfo_screenwidth()-300)//2}+{(root.winfo_screenheight()-200)//2}')
+    login_win.geometry(f'300x100+{(root.winfo_screenwidth() - 300) // 2}+{(root.winfo_screenheight() - 200) // 2}')
 
     frm = ttk.Frame(login_win)
     frm.pack(pady='10p')
@@ -138,7 +185,7 @@ def show_main_window():
     screen_width = win.winfo_screenwidth()
     screen_height = win.winfo_screenheight()
     # win.minsize(MAIN_WIN_WIDTH, MAIN_WIN_HEIGHT)
-    size = f'{MAIN_WIN_WIDTH}x{MAIN_WIN_HEIGHT}+{(screen_width-MAIN_WIN_WIDTH)//2}+{(screen_height-MAIN_WIN_HEIGHT)//2}'
+    size = f'{MAIN_WIN_WIDTH}x{MAIN_WIN_HEIGHT}+{(screen_width - MAIN_WIN_WIDTH) // 2}+{(screen_height - MAIN_WIN_HEIGHT) // 2}'
     win.geometry(size)
     win.resizable(False, False)
 
@@ -147,33 +194,32 @@ def show_main_window():
     # win.resizable(False, False)
 
     # 尝试将窗口分为左右两部分，中间用分割线表示
-    # frm_l = ttk.Labelframe(win, text='func area', padding='10p', height=MAIN_WIN_HEIGHT, width=MAIN_WIN_WIDTH*0.6)
-    # frm_r = ttk.Labelframe(win, text='chat area', padding='10p', height=MAIN_WIN_HEIGHT, width=MAIN_WIN_WIDTH*0.3)
+    frm_l = ttk.Labelframe(win, text='func-area', padding='4p', height=MAIN_WIN_HEIGHT * 0.9, width=round(MAIN_WIN_WIDTH * 0.6))
+    frm_r = ttk.Labelframe(win, text='chat-area', padding='4p', height=MAIN_WIN_HEIGHT * 0.9, width=round(MAIN_WIN_WIDTH * 0.3))
     # frm_l = tk.Frame(win, height=MAIN_WIN_HEIGHT, width=MAIN_WIN_WIDTH*0.7)
     # frm_r = tk.Frame(win, height=MAIN_WIN_HEIGHT, width=MAIN_WIN_WIDTH*0.2)
-    win.grid_columnconfigure(0, weight=7)
-    win.grid_columnconfigure(1, weight=1)
-    win.grid_columnconfigure(2, weight=2)
+    # win.grid_columnconfigure(0, weight=7)
+    # win.grid_columnconfigure(1, weight=1)
+    # win.grid_columnconfigure(2, weight=2)
     # win.grid_rowconfigure(0, weight=3)
-    frm_l = ttk.Labelframe(win, text='func area', padding='10p')
-    frm_r = ttk.Labelframe(win, text='chat area', padding='10p')
+    # frm_l = ttk.Labelframe(win, text='func-area', padding='10p')
+    # frm_r = ttk.Labelframe(win, text='chat-area', padding='10p')
 
-
-    sep = ttk.Separator(win, orient='vertical')
-    sep.grid(column=1, row=0, pady='10p', sticky=tk.NS)
-    frm_l.grid(column=0, row=0, pady='10p', padx='10p')
-    frm_r.grid(column=2, row=0, pady='10p', padx='10p')
+    # sep = ttk.Separator(win, orient='vertical')
+    # sep.grid(column=1, row=0, pady='6p', sticky=tk.NS)
+    frm_l.grid(column=0, row=0, pady='6p', padx='6p', sticky=N + E + S + W)
+    frm_r.grid(column=2, row=0, pady='6p', padx='6p', sticky=N + E + S + W)
     # frm_l.grid_propagate(False)
+    # frm_r.grid_propagate(False)
+    win.update()
 
     # 如下加入子控件会导致上层frame的高度、宽度设置失效
     # ttk.Label(frm_l, text='test').pack()
     # ttk.Label(frm_r, text='test').pack()
     # ttk.Label(frm_l, text='test').grid(column=0, row=0)
     # ttk.Label(frm_r, text='test').grid(column=1, row=0)
-    ttk.Label(frm_l, text='test').grid(column=0, row=0, sticky=N+E+S+W)
-    ttk.Label(frm_r, text='test').grid(column=1, row=0, sticky=N+E+S+W)
-
-
+    # ttk.Label(frm_l, text='test').grid(column=0, row=0, sticky=N+E+S+W)
+    # ttk.Label(frm_r, text='test').grid(column=1, row=0, sticky=N+E+S+W)
 
     win.mainloop()
 
