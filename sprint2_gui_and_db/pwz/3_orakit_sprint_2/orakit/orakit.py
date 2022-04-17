@@ -66,24 +66,27 @@ def init_func(root, menu_bar, account):
             print(e)
 
     # 其次，初始化右侧对话系统（本次不再具体实现后台功能，仅展示）
-    stext = st.ScrolledText(chat_frame, width=35)
-    stext.grid()
+    stext = st.ScrolledText(chat_frame)
+    stext.pack(padx='2p', fill=BOTH, expand=1)
     stext.insert(INSERT, """now you can use the chat system\n---\n\nme: hello\nor: hi""")
 
     def send_msg(event=None):
-        default_resp = """\nor: sorry, chat system offline now."""
+        default_resp = """\nor: chat system offline now."""
         stext.insert('end', f'\nme: {entry_input.get()}' + default_resp)
 
     frm_input = Frame(chat_frame)
     entry_input = StringVar()
     ent = Entry(frm_input, textvariable=entry_input)
-    ent.grid(column=0, row=0)
+    ent.pack(side=LEFT)
     ent.bind('<Key-Return>', send_msg)
-    Button(frm_input, text='Enter to send the chat', command=send_msg).grid(column=1, row=0)
-    frm_input.grid(sticky=W + E)
+    Button(frm_input, text='Enter to send the chat', command=send_msg).pack(side=RIGHT)
+    frm_input.pack(padx='2p', fill=BOTH, expand=1)
 
     # 最后，初始化功能菜单并绑定
-
+    import func_file_compress as ffc
+    import func_simple_calculator as fsc
+    ffc.init_func_simple_calculator(menu_func, func_frame)
+    fsc.init_func_file_compress(menu_func, func_frame)
 
 
 def hidden_func_for_admin(root):
@@ -187,15 +190,15 @@ def show_main_window():
     # win.minsize(MAIN_WIN_WIDTH, MAIN_WIN_HEIGHT)
     size = f'{MAIN_WIN_WIDTH}x{MAIN_WIN_HEIGHT}+{(screen_width - MAIN_WIN_WIDTH) // 2}+{(screen_height - MAIN_WIN_HEIGHT) // 2}'
     win.geometry(size)
-    win.resizable(False, False)
+    # win.resizable(False, False)
 
     aut.init_db()
     init_menu(win)
     # win.resizable(False, False)
 
     # 尝试将窗口分为左右两部分，中间用分割线表示
-    frm_l = ttk.Labelframe(win, text='func-area', padding='4p', height=MAIN_WIN_HEIGHT * 0.9, width=round(MAIN_WIN_WIDTH * 0.6))
-    frm_r = ttk.Labelframe(win, text='chat-area', padding='4p', height=MAIN_WIN_HEIGHT * 0.9, width=round(MAIN_WIN_WIDTH * 0.3))
+    frm_l = ttk.Labelframe(win, text='func-area', height=round(MAIN_WIN_HEIGHT * 0.95), width=round(MAIN_WIN_WIDTH * 0.6))
+    frm_r = ttk.Labelframe(win, text='chat-area', height=round(MAIN_WIN_HEIGHT * 0.95), width=round(MAIN_WIN_WIDTH * 0.4))
     # frm_l = tk.Frame(win, height=MAIN_WIN_HEIGHT, width=MAIN_WIN_WIDTH*0.7)
     # frm_r = tk.Frame(win, height=MAIN_WIN_HEIGHT, width=MAIN_WIN_WIDTH*0.2)
     # win.grid_columnconfigure(0, weight=7)
@@ -207,8 +210,10 @@ def show_main_window():
 
     # sep = ttk.Separator(win, orient='vertical')
     # sep.grid(column=1, row=0, pady='6p', sticky=tk.NS)
-    frm_l.grid(column=0, row=0, pady='6p', padx='6p', sticky=N + E + S + W)
-    frm_r.grid(column=2, row=0, pady='6p', padx='6p', sticky=N + E + S + W)
+    # frm_l.grid(column=0, row=0, pady='6p', padx='6p', sticky=N + E + S + W)
+    # frm_r.grid(column=2, row=0, pady='6p', padx='6p', sticky=N + E + S + W)
+    frm_l.pack(side=LEFT, padx='10p')
+    frm_r.pack(side=RIGHT, padx='10p')
     # frm_l.grid_propagate(False)
     # frm_r.grid_propagate(False)
     win.update()
@@ -220,7 +225,22 @@ def show_main_window():
     # ttk.Label(frm_r, text='test').grid(column=1, row=0)
     # ttk.Label(frm_l, text='test').grid(column=0, row=0, sticky=N+E+S+W)
     # ttk.Label(frm_r, text='test').grid(column=1, row=0, sticky=N+E+S+W)
+    print(round(MAIN_WIN_WIDTH * 0.6))
+    print(frm_l.winfo_width())
+    print(frm_l.winfo_height())
 
+    # ll = Label(frm_l, text='init_func_file_compress', width=frm_l.winfo_width())
+    # ll.pack(fill=BOTH, expand=1)
+    # win.update()
+    # print(ll.winfo_width())
+
+    # 将左右两个布局Frame的大小固定住，不根据子控件变换大小
+    frm_l.pack_propagate(False)
+    frm_l.grid_propagate(False)
+    frm_r.pack_propagate(False)
+    frm_r.grid_propagate(False)
+
+    win.update()
     win.mainloop()
 
 
