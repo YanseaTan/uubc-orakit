@@ -3,11 +3,14 @@
 # created by pwz.wiki 2022
 
 import tkinter as tk
+from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox as msg
 import author_util as aut
 from author_util import Role
 
+MAIN_WIN_WIDTH = 600
+MAIN_WIN_HEIGHT = 400
 
 def help_callback():
     msg.showinfo('OraKit Help', 'no help')
@@ -22,7 +25,8 @@ def init_func(root, menu_bar, account):
     # 查询用户角色
     role = aut.select_role_by_account(account)
     # print(role)
-    # 根据角色处理菜单项
+
+    # 根据角色处理菜单项(测试权限系统用)
     def available_for_this_role(_role):
         if str(_role) == role:
             return tk.NORMAL
@@ -31,11 +35,14 @@ def init_func(root, menu_bar, account):
     menu_func.add_command(label='[TEST] Available for Role.Visitor', state=available_for_this_role(Role.Visitor))
     menu_func.add_command(label='[TEST] Available for Role.Developer', state=available_for_this_role(Role.Developer))
 
+    # 处理本次迭代的实际可用功能项
+    # todo
+
 
 def hidden_func_for_admin(root):
     hidden_win = tk.Toplevel(root)
     hidden_win.title('Hidden Func for Admin')
-    hidden_win.geometry('500x400')
+    hidden_win.geometry(f'400x300+{(root.winfo_screenwidth()-400)//2}+{(root.winfo_screenheight()-300)//2}')
 
     # 新增用户
     lfrm = ttk.Labelframe(hidden_win, text='Account Insert', padding='5p')
@@ -79,7 +86,7 @@ def login(root, menu_bar):
 
     login_win = tk.Toplevel(root)
     login_win.title('Login')
-    login_win.geometry('300x100')
+    login_win.geometry(f'300x100+{(root.winfo_screenwidth()-300)//2}+{(root.winfo_screenheight()-200)//2}')
 
     frm = ttk.Frame(login_win)
     frm.pack(pady='10p')
@@ -127,10 +134,46 @@ def init_menu(root):
 def show_main_window():
     win = tk.Tk()
     win.title('OraKit 0.2')
-    win.geometry('800x600')
+    # 窗口居中
+    screen_width = win.winfo_screenwidth()
+    screen_height = win.winfo_screenheight()
+    # win.minsize(MAIN_WIN_WIDTH, MAIN_WIN_HEIGHT)
+    size = f'{MAIN_WIN_WIDTH}x{MAIN_WIN_HEIGHT}+{(screen_width-MAIN_WIN_WIDTH)//2}+{(screen_height-MAIN_WIN_HEIGHT)//2}'
+    win.geometry(size)
+    win.resizable(False, False)
 
     aut.init_db()
     init_menu(win)
+    # win.resizable(False, False)
+
+    # 尝试将窗口分为左右两部分，中间用分割线表示
+    # frm_l = ttk.Labelframe(win, text='func area', padding='10p', height=MAIN_WIN_HEIGHT, width=MAIN_WIN_WIDTH*0.6)
+    # frm_r = ttk.Labelframe(win, text='chat area', padding='10p', height=MAIN_WIN_HEIGHT, width=MAIN_WIN_WIDTH*0.3)
+    # frm_l = tk.Frame(win, height=MAIN_WIN_HEIGHT, width=MAIN_WIN_WIDTH*0.7)
+    # frm_r = tk.Frame(win, height=MAIN_WIN_HEIGHT, width=MAIN_WIN_WIDTH*0.2)
+    win.grid_columnconfigure(0, weight=7)
+    win.grid_columnconfigure(1, weight=1)
+    win.grid_columnconfigure(2, weight=2)
+    # win.grid_rowconfigure(0, weight=3)
+    frm_l = ttk.Labelframe(win, text='func area', padding='10p')
+    frm_r = ttk.Labelframe(win, text='chat area', padding='10p')
+
+
+    sep = ttk.Separator(win, orient='vertical')
+    sep.grid(column=1, row=0, pady='10p', sticky=tk.NS)
+    frm_l.grid(column=0, row=0, pady='10p', padx='10p')
+    frm_r.grid(column=2, row=0, pady='10p', padx='10p')
+    # frm_l.grid_propagate(False)
+
+    # 如下加入子控件会导致上层frame的高度、宽度设置失效
+    # ttk.Label(frm_l, text='test').pack()
+    # ttk.Label(frm_r, text='test').pack()
+    # ttk.Label(frm_l, text='test').grid(column=0, row=0)
+    # ttk.Label(frm_r, text='test').grid(column=1, row=0)
+    ttk.Label(frm_l, text='test').grid(column=0, row=0, sticky=N+E+S+W)
+    ttk.Label(frm_r, text='test').grid(column=1, row=0, sticky=N+E+S+W)
+
+
 
     win.mainloop()
 

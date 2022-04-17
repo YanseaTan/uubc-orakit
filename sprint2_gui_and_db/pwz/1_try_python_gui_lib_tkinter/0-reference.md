@@ -1,10 +1,16 @@
 # Tkinter参考资料
 
+文档：
 * 关于TCL语言：https://zh.wikipedia.org/zh-cn/Tcl
 * 关于TK：https://tcl.tk/about/
 * Tkinter文档（python化部分）：https://docs.python.org/3/library/tkinter.html
 * TK文档：http://tkdocs.com/tutorial/onepage.html
 * TK在线教程：https://www.tutorialspoint.com/tcl-tk/index.htm
+
+博客：
+* https://tech.meipian.cn/guixiang-mu-shi-jian-wei-wan/
+* [python的tkinter窗口位置\坐标\大小等知识（自用笔记）](https://blog.csdn.net/qq_42402648/article/details/109822589?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-1.pc_relevant_paycolumn_v3&spm=1001.2101.3001.4242.2&utm_relevant_index=4)
+* [Python Tkinter 基础学习笔记](https://www.cnblogs.com/wbyixx/p/11987250.html)
 
 
 READ [Tkinter文档（python化部分）](https://docs.python.org/3/library/tkinter.html) FIRST!  
