@@ -9,6 +9,8 @@ from tkinter import messagebox as msg
 from tkinter import scrolledtext as st
 import author_util as aut
 from author_util import Role
+import func_file_compress as ffc
+import func_simple_calculator as fsc
 
 MAIN_WIN_WIDTH = 800
 MAIN_WIN_HEIGHT = 400
@@ -83,8 +85,6 @@ def init_func(root, menu_bar, account):
     frm_input.pack(padx='2p', fill=BOTH, expand=1)
 
     # 最后，初始化功能菜单并绑定
-    import func_file_compress as ffc
-    import func_simple_calculator as fsc
     ffc.init_func_simple_calculator(menu_func, func_frame)
     fsc.init_func_file_compress(menu_func, func_frame)
 
