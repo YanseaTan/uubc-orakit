@@ -85,8 +85,8 @@ def init_func(root, menu_bar, account):
     frm_input.pack(padx='2p', fill=BOTH, expand=1)
 
     # 最后，初始化功能菜单并绑定
-    ffc.init_func_simple_calculator(menu_func, func_frame)
-    fsc.init_func_file_compress(menu_func, func_frame)
+    fsc.init_func_simple_calculator(menu_func, func_frame)
+    ffc.init_func_file_compress(menu_func, func_frame)
 
 
 def hidden_func_for_admin(root):
@@ -151,7 +151,10 @@ def login(root, menu_bar):
     ttk.Separator(login_win, orient=tk.HORIZONTAL).pack(fill='x', pady='3p')
     ttk.Label(login_win, text='Enter to login').pack()
 
-    login_win.bind('<Key-Return>', lambda event: login_successful() if aut.login_sys(account.get(), password.get()) else login_fail())
+    # login_win.bind('<Key-Return>', lambda event: login_successful() if aut.login_sys(account.get(), password.get()) else login_fail())
+
+    # for test
+    login_win.bind('<Key-Return>', lambda event: login_successful())
 
 
 def init_menu(root):
@@ -239,6 +242,7 @@ def show_main_window():
     frm_l.grid_propagate(False)
     frm_r.pack_propagate(False)
     frm_r.grid_propagate(False)
+
 
     win.update()
     win.mainloop()
