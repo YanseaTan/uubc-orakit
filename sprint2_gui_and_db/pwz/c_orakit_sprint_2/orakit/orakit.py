@@ -151,10 +151,10 @@ def login(root, menu_bar):
     ttk.Separator(login_win, orient=tk.HORIZONTAL).pack(fill='x', pady='3p')
     ttk.Label(login_win, text='Enter to login').pack()
 
-    # login_win.bind('<Key-Return>', lambda event: login_successful() if aut.login_sys(account.get(), password.get()) else login_fail())
+    login_win.bind('<Key-Return>', lambda event: login_successful() if aut.login_sys(account.get(), password.get()) else login_fail())
 
     # for test
-    login_win.bind('<Key-Return>', lambda event: login_successful())
+    # login_win.bind('<Key-Return>', lambda event: login_successful())
 
 
 def init_menu(root):
