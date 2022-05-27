@@ -29,6 +29,13 @@ class HuffmanCodingUtil:
     @staticmethod
     def compress(file_path: str):
         print('compressing... ' + file_path)
+        return 'Aha'
+
+    @staticmethod
+    def decompress(file_path: str, code_path: str):
+        print(f'decompressing... {file_path}')
+        print(f'using code file... {code_path}')
+        return 'hhhh'
 
 
 def init_func_file_compressor(menu: Menu, func_frm: ttk.LabelFrame):
@@ -83,8 +90,12 @@ def init_func_file_compressor(menu: Menu, func_frm: ttk.LabelFrame):
         def compress_func_route():
             if path_dict.get() == '':
                 print('start compressing...')
+                result = HuffmanCodingUtil.compress(path_input.get())
+                print(result)
             else:
                 print('start decompressing...')
+                result = HuffmanCodingUtil.decompress(path_input.get(), path_dict.get())
+                print(result)
 
         start_btn = ttk.Button(func_frm, text='Start to compress/decompress!', command=compress_func_route)
         start_btn.grid(row=7, columnspan=2, rowspan=5, sticky=EW, pady=5, padx=15)
