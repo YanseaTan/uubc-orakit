@@ -88,7 +88,7 @@ def init_func(root, menu_bar, account):
     # 最后，初始化功能菜单并绑定
     fsc.init_func_simple_calculator(menu_func, func_frame)
     fdc.init_func_std_calculator(menu_func, func_frame)
-    ffc.init_func_file_compress(menu_func, func_frame)
+    ffc.init_func_file_compressor(menu_func, func_frame)
 
 
 def hidden_func_for_admin(root):
