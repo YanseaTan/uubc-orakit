@@ -10,8 +10,30 @@ from tkinter.filedialog import (askopenfilename,
                                 asksaveasfilename)
 
 
+class HuffmanCodingUtil:
+    """霍夫曼编码&解码工具
+
+    霍夫曼树构建：不断从所有子树中选择权重最低的两课构建新的子树
+    霍夫曼树构建完毕后，根节点到每一个叶子节点的路径及其编码
+    """
+
+    class Node:
+        """树节点"""
+
+        def __init__(self, info, w, lchild=None, rchild=None):
+            self.info = info
+            self.weight = w
+            self.lch = lchild
+            self.rch = rchild
+
+    @staticmethod
+    def compress(file_path: str):
+        print('compressing... ' + file_path)
+
+
 def init_func_file_compressor(menu: Menu, func_frm: ttk.LabelFrame):
     print(f'container size: width={func_frm.winfo_width()}, height={func_frm.winfo_height()}')
+
     # Label(func_frm, text='init_func_file_compress').pack(fill=BOTH, expand=1)
 
     def init_compressor():
@@ -68,4 +90,3 @@ def init_func_file_compressor(menu: Menu, func_frm: ttk.LabelFrame):
         start_btn.grid(row=7, columnspan=2, rowspan=5, sticky=EW, pady=5, padx=15)
 
     menu.add_command(label='File Compress', command=init_compressor)
-
