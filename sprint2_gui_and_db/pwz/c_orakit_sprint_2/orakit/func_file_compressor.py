@@ -241,7 +241,7 @@ def init_func_file_compressor(menu: Menu, func_frm: ttk.LabelFrame):
         ttk.Label(func_frm, text='compress if code file exist else decompress').grid(row=0, columnspan=2, sticky=EW)
         ttk.Separator(func_frm, orient=HORIZONTAL).grid(row=1, columnspan=2, sticky=EW, pady=15)
 
-        # 选择待处理文件
+        # 选择待压缩文件
         path_input = tk.StringVar()
         open_file_entry = ttk.Entry(func_frm, textvariable=path_input, width=60)
         open_file_btn = ttk.Button(func_frm, text='select...', width=15,
@@ -257,39 +257,45 @@ def init_func_file_compressor(menu: Menu, func_frm: ttk.LabelFrame):
         save_file_entry.grid(row=3, column=0)
         save_file_btn.grid(row=3, column=1)
 
-        # 分割线
-        ttk.Separator(func_frm, orient=HORIZONTAL).grid(row=4, columnspan=2, sticky=EW, pady=15)
+        # 压缩
+        def compress_route():
+            print('start compressing...')
+            try:
+                HuffmanCodingUtil.compress(path_input.get(), path_output.get())
+            except Exception as e:
+                print('error............')
+                print(e)
+        ttk.Button(func_frm, text='<compress>', command=compress_route).grid(row=4, columnspan=2, sticky=EW, pady=5, padx=15)
+
+        # 分割线 ----------------------------------------------------------------------
+        ttk.Separator(func_frm, orient=HORIZONTAL).grid(row=5, columnspan=2, sticky=EW, pady=15)
+
+        # 选择待解压文件
+        path_pwzip = tk.StringVar()
+        open_file_entry = ttk.Entry(func_frm, textvariable=path_pwzip, width=60)
+        open_file_btn = ttk.Button(func_frm, text='select...', width=15,
+                                   command=lambda: path_pwzip.set(askopenfilename(initialdir='.')))
+        open_file_entry.grid(row=6, column=0)
+        open_file_btn.grid(row=6, column=1)
 
         # 选择字典文件
         path_dict = tk.StringVar()
         save_file_entry = ttk.Entry(func_frm, textvariable=path_dict, width=60)
         save_file_btn = ttk.Button(func_frm, text='select code...', width=15,
                                    command=lambda: path_dict.set(askopenfilename(initialdir='.')))
-        save_file_entry.grid(row=5, column=0)
-        save_file_btn.grid(row=5, column=1)
+        save_file_entry.grid(row=7, column=0)
+        save_file_btn.grid(row=7, column=1)
 
-        # 分割线
-        ttk.Separator(func_frm, orient=HORIZONTAL).grid(row=6, columnspan=2, sticky=EW, pady=15)
+        # 解压缩
+        def decompress_route():
+            print('start decompressing...')
+            try:
+                HuffmanCodingUtil.decompress(path_pwzip.get(), path_dict.get())
+            except Exception as e:
+                print('error............')
+                print(e)
 
-        # 压缩/解压缩按钮 ~及功能
-        def compress_func_route():
-            if path_dict.get() == '':
-                print('start compressing...')
-                try:
-                    HuffmanCodingUtil.compress(path_input.get(), path_output.get())
-                except Exception as e:
-                    print('error............')
-                    print(e)
-            else:
-                print('start decompressing...')
-                try:
-                    HuffmanCodingUtil.decompress(path_input.get(), path_dict.get())
-                except Exception as e:
-                    print('error............')
-                    print(e)
-
-        start_btn = ttk.Button(func_frm, text='Start to compress/decompress!', command=compress_func_route)
-        start_btn.grid(row=7, columnspan=2, rowspan=5, sticky=EW, pady=5, padx=15)
+        ttk.Button(func_frm, text='<decompress>', command=decompress_route).grid(row=8, columnspan=2, sticky=EW, pady=5, padx=15)
 
     menu.add_command(label='General File Compressor', command=init_compressor)
 
