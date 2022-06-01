@@ -183,7 +183,8 @@ class HuffmanCodingUtil:
         return True
 
     @staticmethod
-    def decompress(file_path: str, code_path: str):
+    def decompress(file_path: str, code_path: str, save_path: str):
+        print('-' * 50 + '\nHuffmanCodingUtil.decompress() <<<\n' + '-' * 50)
         print(f'decompressing... {file_path}')
 
         # 加载霍夫曼编码文件
@@ -199,27 +200,45 @@ class HuffmanCodingUtil:
         print(f'init huffman code:\n{huffman_reverse}')
 
         # 加载压缩文本
-        size = os.path.getsize(file_path)
-        content_decompress = b''
         with open(file_path, 'rb') as f:
-            """
-            temp = b'\x00'
-            print(temp)
-            print(str(temp)[4:-1])
-            print(int(str(temp)[4:-1], 16))
-            # b'\x00'
-            # 00
-            # 0
-            """
-            first_byte = f.read(1)
-            gap = int(str(first_byte)[4:-1], base=16)
+            content_bin = f.read()
+
+            # 第一个字节记录了末尾有多少个占位零
+            first_byte = content_bin[0]
+            print(first_byte)
+            gap = int(str(first_byte), base=16)
             print(f'gap zero counts: {gap}')
-            for i in range(size-2):
-                content_decompress += huffman_reverse[f.read(1)]
-            # 处理最后的gap
-            last_byte = f.read(1)
-            last_byte = last_byte[0:8-gap]
-            print(last_byte)
+
+            # todo: 如下这里需要进一步了解python关于二进制、迭代器的内容，先实现功能。
+            content_bin = content_bin[1:]
+            bit_stream = ''
+            # bin_con100 = content_bin[:100]
+            # print(bin_con100)
+            # print(type(bin_con100))
+            for bin_i in content_bin:  # 这里
+                # print(bin_i)
+                # print(type(bin_i))
+                # print(bin(bin_i))
+                # print(len(bin(bin_i)))
+                # print(bin(bin_i)[2:])
+                bit_stream += '0' * (10 - len(bin(bin_i))) + bin(bin_i)[2:]
+
+            # 处理最后的gap个占位零
+            bit_stream = bit_stream[:-gap] if gap != 0 else bit_stream
+
+        print('1hundred binary stream should be here: ' + bit_stream[:100])
+
+        # 开始解码
+        with open(save_path+'.decompress.txt', 'wb') as f:  # 没保存原始文件名称，这里解码后默认给个txt后缀了
+            cache_key = ''
+            for bit in bit_stream:
+                cache_key += bit
+                if cache_key in huffman_reverse.keys():
+                    # print('hit the huffman code!')
+                    f.write(huffman_reverse[cache_key])
+                    cache_key = ''
+        print('decompress done.')
+        print('-' * 50 + '\nHuffmanCodingUtil.decompress() <<<\n' + '-' * 50)
         return True
 
 
@@ -238,7 +257,7 @@ def init_func_file_compressor(menu: Menu, func_frm: ttk.LabelFrame):
 
         print('init compressor')
         # 说明文字以及分割线
-        ttk.Label(func_frm, text='compress if code file exist else decompress').grid(row=0, columnspan=2, sticky=EW)
+        ttk.Label(func_frm, text='compress or decompress ... ').grid(row=0, columnspan=2, sticky=EW)
         ttk.Separator(func_frm, orient=HORIZONTAL).grid(row=1, columnspan=2, sticky=EW, pady=15)
 
         # 选择待压缩文件
@@ -286,16 +305,24 @@ def init_func_file_compressor(menu: Menu, func_frm: ttk.LabelFrame):
         save_file_entry.grid(row=7, column=0)
         save_file_btn.grid(row=7, column=1)
 
+        # 选择解压后保存位置
+        path_save_decom = tk.StringVar()
+        save_decom_entry = ttk.Entry(func_frm, textvariable=path_save_decom, width=60)
+        save_decom_btn = ttk.Button(func_frm, text='save to...', width=15,
+                                    command=lambda: path_save_decom.set(askopenfilename(initialdir='.')))
+        save_decom_entry.grid(row=8, column=0)
+        save_decom_btn.grid(row=8, column=1)
+
         # 解压缩
         def decompress_route():
             print('start decompressing...')
             try:
-                HuffmanCodingUtil.decompress(path_pwzip.get(), path_dict.get())
+                HuffmanCodingUtil.decompress(path_pwzip.get(), path_dict.get(), path_save_decom.get())
             except Exception as e:
                 print('error............')
                 print(e)
 
-        ttk.Button(func_frm, text='<decompress>', command=decompress_route).grid(row=8, columnspan=2, sticky=EW, pady=5, padx=15)
+        ttk.Button(func_frm, text='<decompress>', command=decompress_route).grid(row=9, columnspan=2, sticky=EW, pady=5, padx=15)
 
     menu.add_command(label='General File Compressor', command=init_compressor)
 

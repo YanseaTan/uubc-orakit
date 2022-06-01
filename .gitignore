@@ -47,6 +47,5 @@ lib/
 X64/
 
 # Output
-*.txt
 __pycache__
 *.db
