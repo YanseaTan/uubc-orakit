@@ -245,7 +245,6 @@ def show_main_window():
     frm_r.pack_propagate(False)
     frm_r.grid_propagate(False)
 
-
     win.update()
     win.mainloop()
 

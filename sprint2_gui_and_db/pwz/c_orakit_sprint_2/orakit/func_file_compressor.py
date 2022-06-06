@@ -33,10 +33,11 @@ class HuffmanCodingUtil:
     @staticmethod
     def compress(file_path: str, save_path: str):
         """霍夫曼编码压缩过程"""
-        print('-'*50 + '\nHuffmanCodingUtil.compress() >>>\n' + '-'*50)
+        print('-' * 50 + '\nHuffmanCodingUtil.compress() >>>\n' + '-' * 50)
 
         class Node:
             """树节点"""
+
             def __init__(self, info, w, parent=None, lchild=None, rchild=None):
                 self.info = info
                 self.weight = w
@@ -50,6 +51,7 @@ class HuffmanCodingUtil:
 
         # 初始化霍夫曼编码
         huffman_code = {}
+
         def init_huffman_code():
             # 按照字节计算文件中编码权重
             weight = {}
@@ -67,7 +69,7 @@ class HuffmanCodingUtil:
                 huffman_tree_nodes.append(Node(item[0], item[1]))
 
             n = len(huffman_tree_nodes)
-            for i in range(n-1):
+            for i in range(n - 1):
                 """解释下这里这个for循环的结束条件：
                 len()得出的是叶子节点的数量，记作n，根据结构特性，
                 生成的霍夫曼树总结点数量m=2n-1，所以循环条件以huffman_tree_nodes中子树数量达到m为边界,
@@ -139,6 +141,7 @@ class HuffmanCodingUtil:
                     code = code[:-1]
                 # print(code)
                 # print(huffman_code)
+
         init_huffman_code()
         print(f'huffman code:\n{huffman_code}')
 
@@ -153,7 +156,7 @@ class HuffmanCodingUtil:
 
         # 末尾补零凑足字节
         gap = 0 if len(content_bin) % 8 == 0 else 8 - len(content_bin) % 8
-        content_bin += gap*'0'
+        content_bin += gap * '0'
         print(f'gap = {gap}')
 
         size = len(content_bin) // 8
@@ -161,7 +164,7 @@ class HuffmanCodingUtil:
         print(f'byte counts = {size}')
 
         # 存储压缩文件
-        compressed_file_path = save_path+'.pwzip'
+        compressed_file_path = save_path + '.pwzip'
         with open(compressed_file_path, mode='wb') as f:
             # 写入补零信息
             f.write(six.int2byte(gap))
@@ -179,7 +182,7 @@ class HuffmanCodingUtil:
         print('huffman code file saved successfully')
 
         print('compress done.')
-        print('-'*50 + '\nHuffmanCodingUtil.compress() <<<\n' + '-'*50)
+        print('-' * 50 + '\nHuffmanCodingUtil.compress() <<<\n' + '-' * 50)
         return True
 
     @staticmethod
@@ -229,7 +232,7 @@ class HuffmanCodingUtil:
         print('1hundred binary stream should be here: ' + bit_stream[:100])
 
         # 开始解码
-        with open(save_path+'.decompress.txt', 'wb') as f:  # 没保存原始文件名称，这里解码后默认给个txt后缀了
+        with open(save_path + '.decompress.txt', 'wb') as f:  # 没保存原始文件名称，这里解码后默认给个txt后缀了
             cache_key = ''
             for bit in bit_stream:
                 cache_key += bit
@@ -284,6 +287,7 @@ def init_func_file_compressor(menu: Menu, func_frm: ttk.LabelFrame):
             except Exception as e:
                 print('error............')
                 print(e)
+
         ttk.Button(func_frm, text='<compress>', command=compress_route).grid(row=4, columnspan=2, sticky=EW, pady=5, padx=15)
 
         # 分割线 ----------------------------------------------------------------------
