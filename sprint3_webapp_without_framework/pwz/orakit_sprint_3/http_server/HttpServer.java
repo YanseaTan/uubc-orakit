@@ -1,6 +1,6 @@
-package pwz.orakit_sprint_3.a_http_server;
+package pwz.orakit_sprint_3.http_server;
 
-import pwz.orakit_sprint_3.c_service_impl.ChatBot;
+import pwz.orakit_sprint_3.service_impl.ChatBot;
 
 import java.io.IOException;
 import java.io.InputStream;

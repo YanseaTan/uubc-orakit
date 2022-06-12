@@ -1,4 +1,4 @@
-package pwz.orakit_sprint_3.c_service_impl;
+package pwz.orakit_sprint_3.service_impl;
 
 public class ChatBot {
     public static String chat(){
