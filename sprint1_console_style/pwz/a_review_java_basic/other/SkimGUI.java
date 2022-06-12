@@ -1,4 +1,4 @@
-package pwz.one_review_java_basic.other;
+package pwz.a_review_java_basic.other;
 
 import javax.swing.*;
 import java.awt.*;

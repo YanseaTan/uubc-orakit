@@ -1,4 +1,4 @@
-package pwz.one_review_java_basic.basic;
+package pwz.a_review_java_basic.basic;
 
 public interface TryJavaOOP_Interface {
     //define something

@@ -1,4 +1,4 @@
-package pwz.two_orakit_sprint_1.core;
+package pwz.b_orakit_sprint_1.core;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

@@ -1,4 +1,4 @@
-package pwz.one_review_java_basic.other;
+package pwz.a_review_java_basic.other;
 
 public class SkimConcurrency {
 

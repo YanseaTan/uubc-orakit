@@ -1,4 +1,4 @@
-package pwz.one_review_java_basic.further;
+package pwz.a_review_java_basic.further;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
