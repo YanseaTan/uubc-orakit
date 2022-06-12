@@ -33,6 +33,7 @@ public class HttpServer {
 
         // switch实现路由逻辑
         switch (urlString){
+            case "/":response = ChatBot.getHomepage();break;
             case "/chat":response = ChatBot.chat();break;
             case "/test":response = "You just hit an useless button!";break;
             default:response = "Sorry, I don't understand.";
@@ -69,8 +70,10 @@ public class HttpServer {
                             StringBuilder stringBuilder = new StringBuilder();
                             byte [] buffer = new byte[1024];
                             int readOffset = 0;
+                            int count = 0;
                             while ((readOffset = inputStream.read(buffer)) != -1) {
                                 stringBuilder.append(new String(buffer, 0, readOffset));
+                                System.out.println(stringBuilder.toString());
 
                                 // 为了解决read阻塞问题，按照约定判断最后一个3个字节数据
                                 String last3Chars = stringBuilder.substring(stringBuilder.length()-3, stringBuilder.length());
@@ -106,6 +109,6 @@ public class HttpServer {
     }
 
     public static void main(String[] args) {
-        start(80);
+        start(8077);
     }
 }
