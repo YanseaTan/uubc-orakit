@@ -9,7 +9,7 @@ from tkinter import messagebox as msg
 from tkinter import scrolledtext as st
 import author_util as aut
 from author_util import Role
-import func_file_compress as ffc
+import func_file_compressor as ffc
 import func_simple_calculator as fsc
 import func_std_calculator as fdc
 
@@ -244,7 +244,6 @@ def show_main_window():
     frm_l.grid_propagate(False)
     frm_r.pack_propagate(False)
     frm_r.grid_propagate(False)
-
 
     win.update()
     win.mainloop()

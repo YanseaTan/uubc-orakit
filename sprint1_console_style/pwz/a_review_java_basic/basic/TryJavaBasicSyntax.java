@@ -1,4 +1,4 @@
-package pwz.one_review_java_basic.basic;
+package pwz.a_review_java_basic.basic;
 
 import java.util.Scanner;
 import static java.lang.Math.*;

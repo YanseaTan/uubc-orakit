@@ -1,4 +1,4 @@
-package pwz.one_review_java_basic.basic;
+package pwz.a_review_java_basic.basic;
 
 public class HelloWorld{
     public static void main(String[] args) {

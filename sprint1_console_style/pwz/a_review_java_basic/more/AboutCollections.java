@@ -1,4 +1,4 @@
-package pwz.one_review_java_basic.more;
+package pwz.a_review_java_basic.more;
 
 import com.sun.jmx.remote.internal.ArrayQueue;
 

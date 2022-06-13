@@ -1,7 +1,6 @@
-package pwz.two_orakit_sprint_1.service;
+package pwz.b_orakit_sprint_1.service;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
